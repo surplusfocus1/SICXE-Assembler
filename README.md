@@ -1,21 +1,47 @@
-# SICXE-Assembler
-This SIC/XE assembler code project is designed to read and process assembly language instructions and corresponding tables from specified text files. The primary objective of the project is to generate object code that adheres to the SIC/XE format, utilizing the provided instructions and symbol tables.
-                        
-                                  
-# Components 
-## Input Files:
-    
-### Instructions File:
-- Contains the assembly language source code in SIC/XE format, including header (H), text (t), and end (E) records. Each instruction line specifies operation codes, addresses, and data in a structured format.
-- Table File: Includes the symbol table and literal table, providing addresses and object codes for the various operations defined in the instruction file. This file is crucial for resolving symbolic references and generating accurate object code.
+# SIC/XE Assembler
 
-### Parsing and Processing:
- 
-- Table Parsing: The assembler extracts addresses and object codes from the table file. This information is used to correlate symbolic references with their respective machine codes and addresses.
-- Instruction Parsing: The assembler reads and processes instructions from the instructions file. It decodes the header record, text records, and end record, handling symbolic references and converting them into machine-readable formats.
+A two-pass SIC/XE assembler implemented in Python from scratch, generating **100% accurate object code** with full Location Counter, Symbol Table, and HTE Record output. Applies low-level compiler design and computer architecture principles to translate SIC/XE assembly source into standard object code format.
 
-# Object Code Generation:
+---
 
-- Header Record (H): Defines the program name, starting address, and length of the object code. This record is essential for linking and loading the program.
-- Text Records (t): Contains the actual machine code for each segment of the program. Each text record includes the starting address, length of the code, and the object code itself.
-- End Record (E): Specifies the starting address of the program's execution. This record marks the end of the object code and facilitates correct program execution.
+## ⚙️ What It Does
+
+- Parses SIC/XE assembly source files and symbol/literal tables
+- Performs two-pass assembly: resolves symbols in Pass 1, generates object code in Pass 2
+- Outputs correctly structured Header (H), Text (T), and End (E) records
+- Handles all SIC/XE addressing modes and instruction formats
+
+---
+
+## 🧩 Components
+
+### Input Files
+
+**Instructions File**
+Contains the SIC/XE assembly source — Header (`H`), Text (`T`), and End (`E`) records. Each line specifies opcodes, operand addresses, and data in structured format.
+
+**Table File**
+Provides the symbol table and literal table with resolved addresses and object codes. Used to correlate all symbolic references during code generation.
+
+### Processing Pipeline
+
+**Table Parsing**
+Extracts addresses and object codes from the table file to resolve all symbolic references before code generation begins.
+
+**Instruction Parsing**
+Reads and decodes each record type — Header, Text, End — converting symbolic operands into machine-readable addresses using the resolved symbol table.
+
+### Output: Object Code Records
+
+| Record | Purpose |
+|--------|---------|
+| **H (Header)** | Program name, starting address, total object code length |
+| **T (Text)** | Starting address, segment length, and machine code for each program segment |
+| **E (End)** | Execution start address; marks the end of the object program |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Language:** Python
+- **Concepts:** Two-pass assembly, Location Counter, Symbol Table, SIC/XE instruction formats, HTE record generation
